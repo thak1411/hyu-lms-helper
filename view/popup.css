@@ -1,0 +1,10 @@
+.popup-body {
+    width: 200px;
+    font-size: 14px;
+}
+.popup-header {
+    text-align: center;
+}
+.popup-footer {
+    text-align: right;
+}
