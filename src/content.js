@@ -52,7 +52,14 @@ var getCourse = function() {
         window.rn_Loading = false;
         window.rn_CourseStatus = 1;
         window.rn_CourseData = res;
-        getAttendance();
+        $.ajax(`https://learning.hanyang.ac.kr/courses/${res[0].id}/external_tools/9`)
+        .then(res => {
+            var idx1 = res.search('<input type="hidden" name="custom_user_login" id="custom_user_login" value="');
+            var idx2 = res.search('<input type="hidden" name="custom_user_id" id="custom_user_id" value="');
+            window.rn_UserId = res.substring(idx2 + 70, idx2 + 75);
+            window.rn_UserLogin = res.substring(idx1 + 76, idx1 + 86);
+            getAttendance();
+        });
     })
     .fail(function() {
         window.rn_Loading = false;
@@ -74,8 +81,6 @@ var getCourse = function() {
  */
 var getAttendance = function() {
     window.rn_AttendanceTable = [];
-    window.rn_UserId = $('#custom_user_id')[0].value;
-    window.rn_UserLogin = $('#custom_user_login')[0].value;
     for (var i = 0; i < rn_CourseData.length; ++i) {
         (function(id, name) {
             $.ajax({
@@ -111,7 +116,7 @@ var drawTable = function() {
                     <h1 class="ic-Dashboard-header__title"><span class="hidden-phone">대시보드</span></h1>
                 </div>
             </div>
-            <table id="rn-table" style="width: 100%;">
+            <table id="rn-table" style="width: 100%;" border="3">
                 <thead>
                     <tr>
                         <th>과목명</th>
@@ -147,18 +152,61 @@ var drawTable = function() {
         return line;
     }
     var tbody = document.querySelector('#rn-table tbody');
+    var comType = {
+        'pdf': 'PDF',
+        'movie': '동영상',
+        'embed': '웹링크',
+        'assignment': '과제',
+        'video_conference': '화상 강의',
+    }
+    var flag = false;
     for (var course of rn_AttendanceTable) {
         for (var section of course.data.sections) {
             if (!section.has_component) continue;
             for (var subsection of section.subsections) {
                 for (var unit of subsection.units) {
                     for (var component of unit.components) {
-                        tbody.appendChild(makeTableLine([course.name, section.title, subsection.title, component.title, component.type, component.completed, component.use_attendance, component.due_at]));
+                        tbody.appendChild(makeTableLine([
+                            course.name,
+                            section.title,
+                            subsection.title,
+                            component.title,
+                            comType[component.type] || component.type,
+                            (component.completed ? '완료' : '-'),
+                            (component.use_attendance ? '출석' : '출결 대상 아님'),
+                            component.due_at
+                        ]));
+                        flag = true;
                     }
                 }
             }
         }
+        if (flag) tbody.appendChild(makeTableLine(['', '', '', '', '', '', '', '']));
+        flag = false;
     }
+    $.fn.setRowspan = function(num) {
+        var mergeItem = "";
+        var mergeCount = 0;
+        var mergeRowNum = 0;
+      
+        $('tr').each(function(row) {
+            if(row > 0 ){
+                var item = $(':eq(' + num +')',$(this)).html();
+                if (mergeItem != item ) {
+                    mergeCount = 1;
+                    mergeItem = item;
+                    mergeRowNum = row;
+                } else {
+                    mergeCount = mergeCount + 1;
+                    $("tr:eq("+mergeRowNum+") > td:eq("+num+")").attr("rowspan",mergeCount);
+                    $('td:eq('+num+')',$(this)).hide();
+                }
+            }
+        })
+    }
+    $(tbody).setRowspan(0);
+    $(tbody).setRowspan(1);
+    $(tbody).setRowspan(2);
 }
 
 
