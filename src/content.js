@@ -216,7 +216,7 @@ var drawTable = function() {
         for(let i = 1; i < tb.childElementCount; i++){
             let allDone = true;
             for(let j = 3; j < tb.childNodes[i].childElementCount; j++){
-                if(tb.childNodes[i].childNodes[5].textContent == "완료" || (tb.childNodes[i].childNodes[4].textContent != "과제" && tb.childNodes[i].childNodes[6].textContent != "출석")){
+                if(tb.childNodes[i].childNodes[5].textContent == "완료"){
                     tb.childNodes[i].childNodes[j].style.backgroundColor = LIGHTGREEN;
                 } else {
                     allDone = false;
