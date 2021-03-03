@@ -116,7 +116,7 @@ var drawTable = function() {
         <div id="content" class="ic-Layout-contentMain" role="main">
             <div id="dashboard_header_container" class="ic-Dashboard-header">
                 <div class="medium ic-Dashboard-header__layout">
-                    <h1 class="ic-Dashboard-header__title"><span class="hidden-phone">대시보드</span></h1>
+                    <h1 class="ic-Dashboard-header__title"><span class="hidden-phone">LMS Helper - Made By Rn</span></h1>
                 </div>
             </div>
             <table id="rn-table" style="width: 100%;" border="3">
