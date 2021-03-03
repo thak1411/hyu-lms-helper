@@ -7,6 +7,11 @@
  * 2: ERROR
  */
 
+ /**
+  * Colors
+  */
+const LIGHTGREEN =  "#C3FDB8";
+const LIGHTRED = "#FFCCCB";
 
 
 /**
@@ -204,9 +209,28 @@ var drawTable = function() {
             }
         })
     }
+
+    var setColors = () => {
+        let tb = document.querySelector("#rn-table").querySelector("tbody");
+        
+        for(let i = 1; i < tb.childElementCount; i++){
+            let allDone = true;
+            for(let j = 3; j < tb.childNodes[i].childElementCount; j++){
+                if(tb.childNodes[i].childNodes[5].textContent == "완료" || tb.childNodes[i].childNodes[6].textContent != "출석"){
+                    tb.childNodes[i].childNodes[j].style.backgroundColor = LIGHTGREEN;
+                } else {
+                    allDone = false;
+                    tb.childNodes[i].childNodes[j].style.backgroundColor = LIGHTRED;
+                }
+            }
+        }
+    }
+
     $(tbody).setRowspan(0);
     $(tbody).setRowspan(1);
     $(tbody).setRowspan(2);
+
+    setColors();
 }
 
 
