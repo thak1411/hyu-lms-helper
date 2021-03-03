@@ -7,6 +7,9 @@
  * 2: ERROR
  */
 
+const LIGHTGREEN = "#C3FDB8";
+const LIGHTRED   = "#FFCCCB";
+
 
 
 /**
@@ -146,6 +149,8 @@ var drawTable = function() {
         var line = document.createElement('tr');
         for (var item of items) {
             var cell = document.createElement('td');
+            if (items[5] == '완료') cell.style.backgroundColor = LIGHTGREEN;
+            else if (items[5] == '-') cell.style.backgroundColor = LIGHTRED;
             cell.textContent = item;
             line.appendChild(cell);
         }
@@ -199,6 +204,9 @@ var drawTable = function() {
                 } else {
                     mergeCount = mergeCount + 1;
                     $("tr:eq("+mergeRowNum+") > td:eq("+num+")").attr("rowspan",mergeCount);
+                    if ($('td:eq('+5+')',$(this)).css('background-color') == 'rgb(255, 204, 203)') {
+                        $("tr:eq("+mergeRowNum+") > td:eq("+num+")").css('background-color', LIGHTRED);
+                    }
                     $('td:eq('+num+')',$(this)).hide();
                 }
             }
