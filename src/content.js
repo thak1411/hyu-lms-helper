@@ -52,15 +52,15 @@ var getCourse = function() {
         type: 'GET'
     })
     .done(function(res) {
-        window.rn_Loading = false;
-        window.rn_CourseStatus = 1;
         window.rn_CourseData = res;
         $.ajax(`https://learning.hanyang.ac.kr/courses/${res[0].id}/external_tools/9`)
         .then(res => {
-            var idx1 = res.search('<input type="hidden" name="custom_user_login" id="custom_user_login" value="');
-            var idx2 = res.search('<input type="hidden" name="custom_user_id" id="custom_user_id" value="');
-            window.rn_UserId = res.substring(idx2 + 70, idx2 + 75);
-            window.rn_UserLogin = res.substring(idx1 + 76, idx1 + 86);
+            var rn_Form = document.createElement('div');
+            rn_Form.innerHTML = '<iframe class="hide" name="rn-frame"></iframe>' + res.slice(res.search('<form'), res.search('</form>') + 7).replace('id="tool_form"', 'id="rn-form"').replace('target="tool_content"', 'target="rn-frame"');
+            document.body.appendChild(rn_Form);
+            window.rn_UserId = document.querySelector('#rn-form #custom_user_id').value;
+            window.rn_UserLogin = document.querySelector('#rn-form #custom_user_login').value;
+            document.querySelector('#rn-form').submit();
             getAttendance();
         });
     })
@@ -84,11 +84,20 @@ var getCourse = function() {
  */
 var getAttendance = function() {
     window.rn_AttendanceTable = [];
+    var rn_LoadingCount = rn_CourseData.length;
+    window.rn_Loading = rn_CourseData.length > 0;
     for (var i = 0; i < rn_CourseData.length; ++i) {
-        (function(id, name) {
+        (function req(id, name) {
+            var jwt = (a = "xn_api_token", b = document.cookie.match("(^|;) ?" + a + "=([^;]*)(;|$)"), b ? b[2] : null);
+            if (jwt == null) {
+                setTimeout(function() {
+                    req(id, name);
+                }, 500);
+                return;
+            }
             $.ajax({
                 headers: {
-                    Authorization: "Bearer " + (a = "xn_api_token", b = document.cookie.match("(^|;) ?" + a + "=([^;]*)(;|$)"), b ? b[2] : null)
+                    Authorization: "Bearer " + jwt
                 },
                 url: `/learningx/api/v1/courses/${id}/sections/learnstatus_db?user_id=${rn_UserId}&user_login=${rn_UserLogin}&role=1`,
                 type: 'GET'
@@ -98,6 +107,15 @@ var getAttendance = function() {
                     name,
                     data: res,
                 });
+                if (!--rn_LoadingCount) {
+                    window.rn_Loading = false;
+                    window.rn_CourseStatus = 1;
+                }
+            })
+            .fail(function() {
+                rn_LoadingCount = -1;
+                window.rn_Loading = false;
+                window.rn_CourseStatus = 2;
             });
         })(rn_CourseData[i].id, rn_CourseData[i].name);
     }
@@ -144,6 +162,13 @@ var drawTable = function() {
         list.childNodes[i].classList && list.childNodes[i].classList.remove('ic-app-header__menu-list-item--active');
     }
     list.childNodes[list.childNodes.length - 1].classList.add('ic-app-header__menu-list-item--active');
+
+    if (window.rn_Loading) {
+        setTimeout(function() {
+            drawTable();
+        }, 500);
+        return;
+    }
 
     function makeTableLine(items) {
         var line = document.createElement('tr');
@@ -223,9 +248,7 @@ var drawTable = function() {
  * Main Workflow
  */
 var main = function() {
-    setTimeout(() => {
-        getCourse();
-        addButtton();
-    }, 1000);
+    getCourse();
+    addButtton();
 }
 main();
