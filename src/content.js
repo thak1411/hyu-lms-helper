@@ -181,6 +181,11 @@ var drawTable = function() {
         }
         return line;
     }
+    function calcTime(time) {
+        if (!time) return '';
+        var t = parseInt((new Date(time) - new Date()) / 1000);
+        return t < 0 ? '기한 마감' : `${parseInt(t / (3600 * 24))}D ${parseInt(t / 3600) % 24}H ${parseInt(t / 60) % 60}M`;
+    }
     var tbody = document.querySelector('#rn-table tbody');
     var comType = {
         'pdf': 'PDF',
@@ -204,7 +209,7 @@ var drawTable = function() {
                             comType[component.type] || component.type,
                             (component.completed ? '완료' : '-'),
                             (component.use_attendance ? '출석' : '출결 대상 아님'),
-                            component.due_at
+                            calcTime(component.due_at)
                         ]));
                         flag = true;
                     }

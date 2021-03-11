@@ -6,5 +6,5 @@ window.onload = function() {
         script.setAttribute('src', file_path);
         node.appendChild(script);
     }
-    injectScriptHYU(chrome.extension.getURL('/src/dark-theme.js'), 'body');
+    injectScriptHYU(chrome.extension.getURL('/src/dark-theme.js'), 'head');
 }
