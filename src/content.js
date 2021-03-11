@@ -208,7 +208,7 @@ var drawTable = function() {
                             component.title,
                             comType[component.type] || component.type,
                             (component.completed ? '완료' : '-'),
-                            (component.use_attendance ? '출석' : '출결 대상 아님'),
+                            (component.use_attendance ? '출결 대상' : '출결 대상 아님'),
                             calcTime(component.due_at)
                         ]));
                         flag = true;
