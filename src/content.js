@@ -218,6 +218,10 @@ var drawTable = function () {
         assignment: "과제",
         video_conference: "화상 강의",
     };
+    const attendanceType = {
+        absent: "결석",
+        attendance: "출석"
+    };
     var flag = false;
     for (var course of rn_AttendanceTable) {
         for (var section of course.data.sections) {
@@ -238,7 +242,7 @@ var drawTable = function () {
                                     component.title,
                                     comType[component.type] || component.type,
                                     component.completed ? "완료" : "-",
-                                    component.use_attendance ? "출석" : "출결 대상 아님",
+                                    component.use_attendance ? (attendanceType[component.attendance_status] || (component.attendance_status === "none" ? "-" : component.attendance_status)) : "출결 대상 아님",
                                     component.due_at,
                                 ],
                                 link
