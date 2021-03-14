@@ -188,7 +188,7 @@ var drawTable = function () {
         return;
     }
 
-    function makeTableLine(items, link) {
+    function makeTableLine(items, IDs, link) {
         var line = document.createElement("tr");
 
         for (var i = 0; i < items.length; ++i) {
@@ -196,6 +196,7 @@ var drawTable = function () {
             var cell = document.createElement("td");
             if (items[5] == "완료") cell.style.backgroundColor = LIGHTGREEN;
             else if (items[5] == "-") cell.style.backgroundColor = LIGHTRED;
+
             // 학습 제목
             if (i == 3) {
                 var link_title = document.createElement("a");
@@ -206,6 +207,19 @@ var drawTable = function () {
             } else {
                 cell.textContent = item;
             }
+
+            if (i <= 2) {
+                cell.setAttribute('rn_id', IDs ? IDs[i] : '');
+            }
+
+            if (i == 6) {
+                if (items[6] == "출석") {
+                    cell.style.backgroundColor = LIGHTGREEN;
+                } else if (items[6] == "-" || items[6] == "결석") {
+                    cell.style.backgroundColor = LIGHTRED;
+                }
+            }
+
             line.appendChild(cell);
         }
         return line;
@@ -245,6 +259,11 @@ var drawTable = function () {
                                     component.use_attendance ? (attendanceType[component.attendance_status] || (component.attendance_status === "none" ? "-" : component.attendance_status)) : "출결 대상 아님",
                                     component.due_at,
                                 ],
+                                [
+                                    course.course_id,
+                                    section.section_id,
+                                    unit.unit_id
+                                ],
                                 link
                             )
                         );
@@ -264,7 +283,7 @@ var drawTable = function () {
 
         $("tr").each(function (row) {
             if (row > 0) {
-                var item = $(":eq(" + num + ")", $(this)).html();
+                var item = $(":eq(" + num + ")", $(this)).attr('rn_id');
                 if (mergeItem != item) {
                     mergeCount = 1;
                     mergeItem = item;
