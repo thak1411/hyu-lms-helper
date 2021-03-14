@@ -28,10 +28,18 @@ var addButtton = function () {
         </div>
     </a>
     `;
+
     item.onclick = function () {
+        history.replaceState({
+            helper: true
+        }, "hyu lms helper", "/#HYU-LMS-HELPER");
         drawTable();
     };
     list.appendChild(item);
+
+    if (location.hash.indexOf("HYU-LMS-HELPER") !== -1) {
+        drawTable();
+    }
 };
 
 /**
