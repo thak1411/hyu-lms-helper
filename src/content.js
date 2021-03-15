@@ -30,9 +30,7 @@ var addButtton = function () {
     `;
 
     item.onclick = function () {
-        history.replaceState({
-            helper: true
-        }, "hyu lms helper", "/#HYU-LMS-HELPER");
+        history.replaceState(null, "hyu lms helper", "/#HYU-LMS-HELPER");
         drawTable();
     };
     list.appendChild(item);
