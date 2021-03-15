@@ -12,6 +12,8 @@
 
 ## 사용 방법
 
+### 수동 설치
+
 ~~~
 git clone https://github.com/thak1411/hyu-lms-helper.git
 
@@ -24,7 +26,18 @@ zip 파일 내려받기 후 압축해제
 
 이후 사이트 접속시 HELPER라는 메뉴가 생성되는데 이 메뉴를 눌러 사용가능합니다.
 
+### 스토어에서 설치
+
+[크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가 혹은
+
 ## History
+
+### v1.2.0
+
+* 표에서 셀 병합시 생기는 버그 수정
+* 강의명에 하이퍼링크 기능추가
+* 출결 현황 메시지 업데이트
+* 마감 기한이 UTC +0 으로 뜨던 문제 해결 및 남은 시간으로 표시하도록 수정
 
 ### v1.1.0
 
