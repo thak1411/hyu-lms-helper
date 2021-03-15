@@ -28,7 +28,7 @@ zip 파일 내려받기 후 압축해제
 
 ### 스토어에서 설치
 
-[크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가 혹은
+[크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가
 
 ## History
 
