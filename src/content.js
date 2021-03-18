@@ -261,6 +261,14 @@ var drawTable = function () {
 
                         // 동영상 바로보기
                         // var link = `/learningx/coursebuilder/view/contents/${component.commons_content.content_id}?user_login=${rn_UserLogin}&course_id=${course.course_id}&section_id=${section.section_id}&component_id=${component.component_id}&role=1&locale=ko&content_type=${component.type}&use_content_progress=true`
+
+                        // 강의명에서 강의 코드 제거
+                        let splitedCourseName = course.name.split('_');
+                        if (splitedCourseName.length != 1) {
+                            splitedCourseName.shift();
+                            course.name = splitedCourseName.join(' ');
+                        }
+
                         tbody.appendChild(
                             makeTableLine(
                                 [
