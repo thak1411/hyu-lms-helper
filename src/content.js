@@ -147,6 +147,7 @@ var getAttendance = function () {
  */
 var drawTable = function () {
     var wrapper = document.querySelector("#wrapper");
+    wrapper.style.maxWidth = "none";
     var rn_DefaultPages = wrapper.innerHTML;
     wrapper.innerHTML = `
     <div id="main">
