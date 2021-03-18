@@ -9,6 +9,7 @@
 
 const LIGHTGREEN = "#C3FDB8";
 const LIGHTRED = "#FFCCCB";
+const MAXCOURSETITLELENGTH = 50;
 
 /**
  * Add Button In Menu Tab
@@ -28,10 +29,28 @@ var addButtton = function () {
         </div>
     </a>
     `;
+
+    let style = document.createElement('style');
+    style.textContent = `.limited-length:hover:after {
+        position: absolute;
+        content: attr(full-name);
+        display: inline-block;
+        padding: 5px;
+        margin: 5px;
+        background-color: black;
+        color: white;
+    }`
+
     item.onclick = function () {
+        history.replaceState(null, "hyu lms helper", "/#HYU-LMS-HELPER");
         drawTable();
     };
+    list.appendChild(style);
     list.appendChild(item);
+
+    if (location.hash.indexOf("HYU-LMS-HELPER") !== -1) {
+        drawTable();
+    }
 };
 
 /**
@@ -141,6 +160,7 @@ var getAttendance = function () {
  */
 var drawTable = function () {
     var wrapper = document.querySelector("#wrapper");
+    wrapper.style.maxWidth = "none";
     var rn_DefaultPages = wrapper.innerHTML;
     wrapper.innerHTML = `
     <div id="main">
@@ -197,12 +217,27 @@ var drawTable = function () {
             if (items[5] == "완료") cell.style.backgroundColor = LIGHTGREEN;
             else if (items[5] == "-") cell.style.backgroundColor = LIGHTRED;
 
-            // 학습 제목
-            if (i == 3) {
+            if (item && (i == 1 || i == 2)) {
+                // 주차
+                let splitedSectionName = item.split('/');
+                cell.textContent = splitedSectionName[0];
+                cell.classList.add('limited-length');
+                cell.setAttribute('full-name', item);
+            } else if (i == 3) {
+                // 학습 제목
                 var link_title = document.createElement("a");
                 link_title.setAttribute("href", link);
                 link_title.setAttribute("target", "_blank");
-                link_title.textContent = item;
+
+                if (item.length > MAXCOURSETITLELENGTH) {
+                    let limitedTitle = item.substr(0, MAXCOURSETITLELENGTH) + "...";
+                    link_title.textContent = limitedTitle;
+                    cell.classList.add('limited-length');
+                    cell.setAttribute('full-name', item);
+                } else {
+                    link_title.textContent = item;
+                }
+
                 cell.appendChild(link_title);
             } else {
                 cell.textContent = item;
@@ -254,6 +289,14 @@ var drawTable = function () {
 
                         // 동영상 바로보기
                         // var link = `/learningx/coursebuilder/view/contents/${component.commons_content.content_id}?user_login=${rn_UserLogin}&course_id=${course.course_id}&section_id=${section.section_id}&component_id=${component.component_id}&role=1&locale=ko&content_type=${component.type}&use_content_progress=true`
+
+                        // 강의명에서 강의 코드 제거
+                        let splitedCourseName = course.name.split('_');
+                        if (splitedCourseName.length != 1) {
+                            splitedCourseName.shift();
+                            course.name = splitedCourseName.join(' ');
+                        }
+
                         tbody.appendChild(
                             makeTableLine(
                                 [
