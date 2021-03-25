@@ -216,7 +216,7 @@ var drawTable = function () {
         for (var i = 0; i < items.length; ++i) {
             var item = items[i];
             var cell = document.createElement("td");
-            if (items[5] == "완료") cell.style.backgroundColor = LIGHTGREEN;
+            if (items[5] == "완료" || item[5] == "오프라인 학습") cell.style.backgroundColor = LIGHTGREEN;
             else if (items[5] == "-") cell.style.backgroundColor = LIGHTRED;
 
             if (item && (i == 1 || i == 2)) {
@@ -371,5 +371,6 @@ var drawTable = function () {
 var main = function () {
     getCourse();
     addButtton();
+    console.log(document.querySelectorAll('iframe'));
 };
 main();

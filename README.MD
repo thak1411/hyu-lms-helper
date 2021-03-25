@@ -24,13 +24,22 @@ zip 파일 내려받기 후 압축해제
 
 내려받은 폴더를 그대로 [크롬 익스텐션 등록](https://developer.chrome.com/extensions/getstarted)하면 됩니다.
 
-이후 사이트 접속시 HELPER라는 메뉴가 생성되는데 이 메뉴를 눌러 사용가능합니다.
-
 ### 스토어에서 설치
 
 [크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가
 
+
+### 설치 이후
+
+사이트 접속시 대시보드, 과목 등이 뜨는 메뉴 바에 HELPER라는 메뉴가 생성되는데 이 메뉴를 눌러 사용가능합니다.
+
 ## History
+
+### v1.3.0
+
+* 표 디자인 개선 - 글자 수 제한 및 툴팁 생성으로 표가 깨지는 것을 방지
+* 하이리온으로 메뉴 바의 아이콘 변경
+* 표가 이상하게 색칠되던 버그 수정
 
 ### v1.2.0
 
