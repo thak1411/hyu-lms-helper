@@ -169,7 +169,8 @@ var drawTable = function () {
         <div id="content" class="ic-Layout-contentMain" role="main">
             <div id="dashboard_header_container" class="ic-Dashboard-header">
                 <div class="medium ic-Dashboard-header__layout">
-                    <h1 class="ic-Dashboard-header__title"><span class="hidden-phone">LMS Helper - Made By Rn</span></h1>
+                    <h1 class="ic-Dashboard-header__title"><span class="hidden-phone">LMS Helper <span style="font-size:1rem; color:grey;">Made By Rn</span></span></h1><br>
+                    <span id="classBookmark"></span>
                 </div>
             </div>
             <table id="rn-table" style="width: 100%;" border="3">
@@ -275,6 +276,10 @@ var drawTable = function () {
         embed: "웹링크",
         assignment: "과제",
         video_conference: "화상 강의",
+        discussion:"토론",
+        smart_attendance:"스마트 출석",
+        file:"파일",
+        text:"텍스트"
     };
     const attendanceType = {
         absent: "결석",
@@ -363,6 +368,22 @@ var drawTable = function () {
     $(tbody).setRowspan(0);
     $(tbody).setRowspan(1);
     $(tbody).setRowspan(2);
+
+
+    var currentClassName = ""
+    var numOfCurrentClass = 0;
+    $('#rn-table td:first-child').each(function(){
+        try{
+            var className = $(this).html().trim();
+            if(className != "" && className != currentClassName && typeof className == "string"){
+                currentClassName = className;
+                $(this).attr('id','className'+numOfCurrentClass);
+                var tmpHTML = `<a class="classBM" href="#className`+numOfCurrentClass+`"><span>`+className+`</span></a>`;
+                $('#classBookmark').append(tmpHTML);
+                numOfCurrentClass++;
+            }
+        }catch(e){ /* catch objects */ }
+    })
 };
 
 /**
