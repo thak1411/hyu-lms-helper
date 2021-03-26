@@ -8,6 +8,7 @@
     "content_scripts": [{
         "all_frames": true,
         "js": [ "/src/script.js" ],
+        "css": [ "/src/style.css" ],
         "matches": [ "https://learning.hanyang.ac.kr/*" ],
         "run_at": "document_start"
     }],
