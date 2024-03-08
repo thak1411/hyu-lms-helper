@@ -1,8 +1,8 @@
 {
     "name": "HYU LMS HELPER",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "LearningX Helper Made By Rn",
-    "browser_action": {
+    "action": {
         "default_popup": "view/popup.html"
     },
     "content_scripts": [{
@@ -11,6 +11,9 @@
         "matches": [ "https://learning.hanyang.ac.kr/*" ],
         "run_at": "document_start"
     }],
-    "web_accessible_resources" : ["/src/content.js"],
-    "manifest_version": 2
+    "web_accessible_resources": [{
+        "resources": ["/src/content.js"],
+        "matches": ["<all_urls>"]
+    }],
+    "manifest_version": 3
 }

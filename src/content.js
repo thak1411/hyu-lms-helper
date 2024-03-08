@@ -237,7 +237,7 @@ var drawTable = function () {
         return;
     }
 
-    function makeTableLine(items, IDs, link) {
+    function makeTableLine(items, IDs, link, dlink) {
         var line = document.createElement("tr");
 
         for (var i = 0; i < items.length; ++i) {
@@ -284,6 +284,17 @@ var drawTable = function () {
                 }
 
                 cell.appendChild(link_title);
+            } else if (item && i == 3) {
+                if (dlink) {
+                    var link_title = document.createElement("a");
+                    link_title.setAttribute("href", `https://hycms.hanyang.ac.kr/index.php?module=xn_media_content2013&act=dispXn_media_content2013DownloadContent&content_id=${IDs[2]}`);
+                    link_title.setAttribute("target", "_blank");
+                    link_title.textContent = item;
+
+                    cell.appendChild(link_title);
+                } else {
+                    cell.textContent = item;
+                }
             } else {
                 cell.textContent = item;
             }
@@ -349,7 +360,7 @@ var drawTable = function () {
                     course.name = splitedCourseName.join(' ');
                 }
 
-                function makeContentTime(v) {
+                function makeContentType(v) {
                     if (v.content_type == 'assignment') return '과제';
                     if (v.content_type == 'quiz') return '퀴즈';
                     if (v.content_type == 'discussion') return '토론';
@@ -366,7 +377,7 @@ var drawTable = function () {
                             item.title, // subsection.title,
                             // item.title,
                             mitem.title,
-                            makeContentTime(mitem),
+                            makeContentType(mitem),
                             // comType[mitem.content_data.item_content_data.content_type] || mitem.content_data.item_content_data.content_type,
                             mitem.completed ? "완료" : "-",
                             mitem.content_data.use_attendance ? (attendanceType[mitem.attendance_status] || (mitem.attendance_status === "none" ? "-" : mitem.attendance_status)) : "출결 대상 아님",
@@ -375,8 +386,10 @@ var drawTable = function () {
                         [
                             course.course_id,
                             item.module_id,
+                            mitem.content_data && mitem.content_data.item_content_data && mitem.content_data.item_content_data.content_id,
                         ],
                         link,
+                        mitem.content_data && mitem.content_data.item_content_data && mitem.content_data.item_content_data.view_url,
                     )
                 );
                 flag = true;

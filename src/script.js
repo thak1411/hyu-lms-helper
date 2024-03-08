@@ -9,5 +9,5 @@ window.onload = function() {
         script.setAttribute('src', file_path);
         node.appendChild(script);
     }
-    injectScript(chrome.extension.getURL('/src/content.js'), 'body');
+    injectScript(chrome.runtime.getURL('/src/content.js'), 'body');
 }
