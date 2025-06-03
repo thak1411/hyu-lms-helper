@@ -22,12 +22,13 @@ git clone https://github.com/thak1411/hyu-lms-helper.git
 zip 파일 내려받기 후 압축해제
 ~~~
 
-내려받은 폴더를 그대로 [크롬 익스텐션 등록](https://developer.chrome.com/extensions/getstarted)하면 됩니다.
+* Chrome: 내려받은 폴더를 그대로 [크롬 익스텐션 등록](https://developer.chrome.com/extensions/getstarted)하면 됩니다.
+* Firefox / Zen: [디버깅 페이지](about:debugging)로 접속하고 "This Firefox(or This Zen)" -> "Load Temporary Add-on"을 누른 후 내려받은 zip파일 (혹은 압축 해제된 파일의 manifest.json)을 선택하면 됩니다.
 
 ### 스토어에서 설치
 
-[크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가
-
+* Chrome: [크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가
+* Firefox / Zen은 아직 스토어를 통한 설치를 제공하지 않습니다.
 
 ### 설치 이후
 
