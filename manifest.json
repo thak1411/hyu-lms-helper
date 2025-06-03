@@ -18,5 +18,11 @@
         "resources": ["/src/content.js"],
         "matches": ["<all_urls>"]
     }],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "hyu-lms-helper@rn",
+            "strict_min_version": "109.0"
+        }
+    },
     "manifest_version": 3
 }
