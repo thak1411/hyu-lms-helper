@@ -5,6 +5,9 @@
     "action": {
         "default_popup": "view/popup.html"
     },
+    "icons": {
+        "32": "Logo-32.png"
+    },
     "content_scripts": [{
         "all_frames": true,
         "js": [ "/src/script.js" ],
