@@ -5,6 +5,9 @@
     "action": {
         "default_popup": "view/popup.html"
     },
+    "icons": {
+        "32": "Logo-32.png"
+    },
     "content_scripts": [{
         "all_frames": true,
         "js": [ "/src/script.js" ],
@@ -15,5 +18,11 @@
         "resources": ["/src/content.js"],
         "matches": ["<all_urls>"]
     }],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "hyu-lms-helper@rn",
+            "strict_min_version": "109.0"
+        }
+    },
     "manifest_version": 3
 }
