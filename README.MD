@@ -28,7 +28,7 @@ zip 파일 내려받기 후 압축해제
 ### 스토어에서 설치
 
 * Chrome: [크롬 웹스토어](https://chrome.google.com/webstore/detail/hyu-lms-helper/ahkbicmdpaknajbgefiolmhakkkojaml?hl=ko&)에서 크롬에 추가
-* Firefox / Zen은 아직 스토어를 통한 설치를 제공하지 않습니다.
+* Firefox / Zen: [ADD-ONS](https://addons.mozilla.org/ko/firefox/addon/hyu-lms-helper/)에서 브라우저에 추가
 
 ### 설치 이후
 
